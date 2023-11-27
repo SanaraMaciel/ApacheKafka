@@ -1,0 +1,9 @@
+
+g
+7src/main/java/br/com/sanara/ecommerce/EmailService.java,4\8\48b4368efd33f6fd84b10dcc487acda8371d4d68
+o
+?src/main/java/br/com/sanara/ecommerce/FraudDetectorService.java,e\a\eaa52fc8154a2ddf0c3851d14b241a80eaecc096
+j
+:src/main/java/br/com/sanara/ecommerce/KafkaDispatcher.java,6\f\6f00d2157bd1d3d3f42c297005d5a585dc1b2ed2
+k
+;src/main/java/br/com/sanara/ecommerce/ConsumerFunction.java,7\3\73d742cfa3cbce943ddf5918ffdda2d7c25d03b8
