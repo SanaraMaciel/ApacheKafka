@@ -18,8 +18,8 @@ public class NewOrderMain {
         var producer = new KafkaProducer<String, String>(properties());
 
         //variavel usada para ser a chave e o valor
-        var key = "pedido2";
-        var value = "123123";
+        var key = "pedido7";
+        var value = "58977";
 
         //registro do producer que vai armazenar o que vc envia pro kafka
         var record = new ProducerRecord("ECOMMERCE_NEW_ORDER", key, value);
