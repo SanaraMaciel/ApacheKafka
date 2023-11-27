@@ -36,7 +36,7 @@ public class FraudDetectorService {
                     System.out.println(record.offset());
 
                     try {
-                        //coloca um sleep pra aplicação "dormir" por um tempo p/ simular a fraude
+                        //coloca um sleep pra aplicação "dormir" por um tempo p/ simular a fraude 5 segundos
                         Thread.sleep(5000);
                     } catch (InterruptedException e) {
                         //ignoring

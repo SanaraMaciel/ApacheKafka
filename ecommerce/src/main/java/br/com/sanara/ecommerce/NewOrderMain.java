@@ -1,5 +1,6 @@
 package br.com.sanara.ecommerce;
 
+import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -18,8 +19,8 @@ public class NewOrderMain {
         var producer = new KafkaProducer<String, String>(properties());
 
         //variavel usada para ser a chave e o valor
-        var key = "pedido7";
-        var value = "58977";
+        var key = "pedido10";
+        var value = "50000";
 
         //registro do producer que vai armazenar o que vc envia pro kafka
         var record = new ProducerRecord("ECOMMERCE_NEW_ORDER", key, value);
@@ -27,14 +28,20 @@ public class NewOrderMain {
         //enviando um record pelo producer send é assíncrono o get faz com que vc espere a finalização
         //passar um callback pro kafka pra poder ver se deu certo ou não
         //como se tivesse fazendo um observer para ver o resultado
-        producer.send(record, (data, ex) -> {
+        Callback callback = (data, ex) -> {
             if (ex != null) {
                 ex.printStackTrace();
                 return;
             }
             System.out.println("sucesso enviando: " + data.topic() + ":::partition: " + data.partition() + "/ offset "
                     + data.offset() + "/ timestamp" + data.timestamp());
-        }).get();
+        };
+        producer.send(record, callback).get();
+
+        //enviando um novo record no tópico
+        var email = "Bem Vindo! estamos processando sua compra";
+        var emailRecord = new ProducerRecord<>("ECOMMERCE_SEND_EMAIL", email, email);
+        producer.send(emailRecord).get();
 
     }
 

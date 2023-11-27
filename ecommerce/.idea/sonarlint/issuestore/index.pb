@@ -1,6 +1,4 @@
 
-g
-7src/main/java/br/com/sanara/ecommerce/EmailService.java,4\8\48b4368efd33f6fd84b10dcc487acda8371d4d68
 j
 :src/main/java/br/com/sanara/ecommerce/KafkaDispatcher.java,6\f\6f00d2157bd1d3d3f42c297005d5a585dc1b2ed2
 k
