@@ -61,6 +61,9 @@ public class FraudDetectorService {
         //informa o id do grupo que ele ficará escutando
         properties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, FraudDetectorService.class.getSimpleName());
 
+        //informando um id para o seu consumidor manualmente
+        //properties.setProperty(ConsumerConfig.CLIENT_ID_CONFIG, "ip da maquina");
+
         return properties;
     }
 
