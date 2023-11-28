@@ -19,8 +19,8 @@ public class NewOrderMain {
         var producer = new KafkaProducer<String, String>(properties());
 
         //variavel usada para ser a chave e o valor
-        var key = "pedido10";
-        var value = "50000";
+        var key = UUID.randomUUID().toString();
+        var value = key + "30000,8000";
 
         //registro do producer que vai armazenar o que vc envia pro kafka
         var record = new ProducerRecord("ECOMMERCE_NEW_ORDER", key, value);
@@ -39,8 +39,9 @@ public class NewOrderMain {
         producer.send(record, callback).get();
 
         //enviando um novo record no tópico
+        var keyEmail = UUID.randomUUID().toString();;
         var email = "Bem Vindo! estamos processando sua compra";
-        var emailRecord = new ProducerRecord<>("ECOMMERCE_SEND_EMAIL", email, email);
+        var emailRecord = new ProducerRecord<>("ECOMMERCE_SEND_EMAIL", keyEmail, email);
         producer.send(emailRecord).get();
 
     }

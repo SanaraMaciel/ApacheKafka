@@ -32,3 +32,12 @@ bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic LOJA_NOV
 descrevendo os tópicos:
 
 .\bin\windows\kafka-topics.bat --describe --bootstrap-server localhost:9092 --describe
+
+alterar um tópico (número de partição):
+
+.\bin\windows\kafka-topics.bat --alter --zookeeper localhost:9092 --topic ECOMMERCE_NEW_ORDER --partitions 3
+./bin/kafka-topics.sh --alter --bootstrap-server localhost:9092 --topic ECOMMERCE_NEW_ORDER --partitions 3 -- esse funcionou devido a versão do kafka
+
+analisar os grupos de consumo:
+
+.\bin\windows\kafka-consumer-groups.bat --all-groups --bootstrap-server localhost:9092 --describe
