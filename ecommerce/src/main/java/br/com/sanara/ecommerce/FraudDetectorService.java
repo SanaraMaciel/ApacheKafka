@@ -22,27 +22,31 @@ public class FraudDetectorService {
 
         //pergunta se tem msg dentro do tópico no intervalo
         //coloca essa chamada em um laço assim ele ficará sempre escutando
-        while (true) {
-            var records = consumer.poll(Duration.ofMillis(100));
+        for (int i = 0; i <= 100; i++) {
 
-            if (!records.isEmpty()) {
-                System.out.println("Encontrei " + records.count() + " registros");
-                for (var record : records) {
-                    System.out.println("--------------------------------------------");
-                    System.out.println("Processando nova ordem, checando por fraude");
-                    System.out.println(record.key());
-                    System.out.println(record.value());
-                    System.out.println(record.partition());
-                    System.out.println(record.offset());
 
-                    try {
-                        //coloca um sleep pra aplicação "dormir" por um tempo p/ simular a fraude 5 segundos
-                        Thread.sleep(5000);
-                    } catch (InterruptedException e) {
-                        //ignoring
-                        e.printStackTrace();
+            while (true) {
+                var records = consumer.poll(Duration.ofMillis(100));
+
+                if (!records.isEmpty()) {
+                    System.out.println("Encontrei " + records.count() + " registros");
+                    for (var record : records) {
+                        System.out.println("--------------------------------------------");
+                        System.out.println("Processando nova ordem, checando por fraude");
+                        System.out.println(record.key());
+                        System.out.println(record.value());
+                        System.out.println(record.partition());
+                        System.out.println(record.offset());
+
+                        try {
+                            //coloca um sleep pra aplicação "dormir" por um tempo p/ simular a fraude 5 segundos
+                            Thread.sleep(5000);
+                        } catch (InterruptedException e) {
+                            //ignoring
+                            e.printStackTrace();
+                        }
+                        System.out.println("Order processada");
                     }
-                    System.out.println("Order processada");
                 }
             }
         }
@@ -63,6 +67,9 @@ public class FraudDetectorService {
 
         //informando um id para o seu consumidor manualmente
         //properties.setProperty(ConsumerConfig.CLIENT_ID_CONFIG, "ip da maquina");
+
+        //propriedade de rebalanceamento para processar as msg de uma a uma
+        properties.setProperty(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, "1");
 
         return properties;
     }
