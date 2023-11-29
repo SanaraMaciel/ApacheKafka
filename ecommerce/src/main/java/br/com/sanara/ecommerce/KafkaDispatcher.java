@@ -7,7 +7,6 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.io.Closeable;
-import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
@@ -21,7 +20,7 @@ class KafkaDispatcher implements Closeable {
 
     private static Properties properties() {
         var properties = new Properties();
-        properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
+        properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         return properties;
@@ -39,6 +38,7 @@ class KafkaDispatcher implements Closeable {
         producer.send(record, callback).get();
     }
 
+    //Interface que ajuda a fazer o fechamento tanto por exception quanto após a finalização do recurso
     @Override
     public void close() {
         producer.close();
