@@ -13,7 +13,7 @@ public class NewOrderMain {
 
         //método para gerar o producer do kafka
         try (var orderDispatcher = new KafkaDispatcher<Order>()) {
-            try (var emailDispatcher = new KafkaDispatcher<String>()) {
+            try (var emailDispatcher = new KafkaDispatcher<Email>()) {
                 for (var i = 0; i < 10; i++) {
 
                     //variavel usada para ser a chave e o valor
@@ -26,7 +26,8 @@ public class NewOrderMain {
 
                     //enviando um novo record no tópico
                     var keyEmail = UUID.randomUUID().toString();
-                    var email = "Bem Vindo! estamos processando sua compra";
+                    Email email = new Email("teste","Bem");
+                    //String email = "teste meu Bem";
                     emailDispatcher.send("ECOMMERCE_SEND_EMAIL", keyEmail, email);
                 }
 

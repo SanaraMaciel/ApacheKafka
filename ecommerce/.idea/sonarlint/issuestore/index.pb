@@ -1,6 +1,4 @@
 
-k
-;src/main/java/br/com/sanara/ecommerce/ConsumerFunction.java,7\3\73d742cfa3cbce943ddf5918ffdda2d7c25d03b8
 j
 :src/main/java/br/com/sanara/ecommerce/EmailServiceOld.java,1\0\10fb14ead7870f090a17c38040fdf1ec5e5a0c03
 r
