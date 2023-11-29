@@ -2,6 +2,8 @@ package br.com.sanara.ecommerce;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
+import java.util.Map;
+
 /**
  * Serviço para detectar fraudes refatorada
  */
@@ -10,7 +12,7 @@ public class EmailService {
     public static void main(String[] args) {
         var emailService = new EmailService();
         try (var service = new KafkaService(EmailService.class.getSimpleName(),
-                "ECOMMERCE_SEND_EMAIL", emailService::parse, Email.class)){
+                "ECOMMERCE_SEND_EMAIL", emailService::parse, Email.class, Map.of())){
             service.run();
         }
     }
