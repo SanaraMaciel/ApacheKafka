@@ -1,5 +1,6 @@
 package br.com.sanara.ecommerce;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
@@ -11,20 +12,25 @@ public class NewOrderMain {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
 
         //método para gerar o producer do kafka
-        try ( var dispatcher = new KafkaDispatcher()) {
-            for (var i = 0; i < 10; i++) {
+        try (var orderDispatcher = new KafkaDispatcher<Order>()) {
+            try (var emailDispatcher = new KafkaDispatcher<String>()) {
+                for (var i = 0; i < 10; i++) {
 
-                //variavel usada para ser a chave e o valor
-                var key = UUID.randomUUID().toString();
-                var value = key + "70000,9000";
-                dispatcher.send("ECOMMERCE_NEW_ORDER", key, value);
+                    //variavel usada para ser a chave e o valor
+                    var userId = UUID.randomUUID().toString();
+                    var orderId = UUID.randomUUID().toString();
+                    var amount = new BigDecimal(Math.random() * 5000 + 1);
+                    var order = new Order(userId, orderId, amount);
 
-                //enviando um novo record no tópico
-                var keyEmail = UUID.randomUUID().toString();
-                var email = "Bem Vindo! estamos processando sua compra";
-                dispatcher.send("ECOMMERCE_SEND_EMAIL", keyEmail, email);
+                    orderDispatcher.send("ECOMMERCE_NEW_ORDER", userId, order);
+
+                    //enviando um novo record no tópico
+                    var keyEmail = UUID.randomUUID().toString();
+                    var email = "Bem Vindo! estamos processando sua compra";
+                    emailDispatcher.send("ECOMMERCE_SEND_EMAIL", keyEmail, email);
+                }
+
             }
-
         }
     }
 }
