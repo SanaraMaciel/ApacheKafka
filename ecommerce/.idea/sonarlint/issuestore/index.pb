@@ -1,23 +1,3 @@
 
 j
-:src/main/java/br/com/sanara/ecommerce/EmailServiceOld.java,1\0\10fb14ead7870f090a17c38040fdf1ec5e5a0c03
-r
-Bsrc/main/java/br/com/sanara/ecommerce/FraudDetectorServiceOld.java,0\c\0c5c4f919075017c5c66688940de9a01010b7a1d
-j
 :src/main/java/br/com/sanara/ecommerce/NewOrderMainOld.java,c\7\c72543413ac8ea5d769090d09f5f60671e0553b1
-7
-pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
-i
-9src/main/java/br/com/sanara/ecommerce/GsonSerializer.java,4\e\4e3a95dbe1279e34018568e3d43fc01a0ab7ee04
-j
-:src/main/java/br/com/sanara/ecommerce/KafkaDispatcher.java,6\f\6f00d2157bd1d3d3f42c297005d5a585dc1b2ed2
-h
-8src/main/java/br/com/sanara/ecommerce/LogServiceOld.java,5\d\5d4b752f92229afd952c94325dc42d9afc511b2f
-`
-0src/main/java/br/com/sanara/ecommerce/Order.java,4\f\4f081887c139eb18632bf5f06060e9192c14f753
-k
-;src/main/java/br/com/sanara/ecommerce/ConsumerFunction.java,7\3\73d742cfa3cbce943ddf5918ffdda2d7c25d03b8
-`
-0src/main/java/br/com/sanara/ecommerce/Email.java,0\a\0ac15fe7c3c8dbdf13637ab78d3e67f9980707b4
-k
-;src/main/java/br/com/sanara/ecommerce/GsonDeserializer.java,7\9\794304b1622006f0108b7fb0e6d0fb3547c70932
