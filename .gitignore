@@ -1,0 +1,5 @@
+# Ignore os arquivos da ide
+/.idea/sonarlint/
+
+# Ignore a pasta node_modules
+node_modules
