@@ -51,10 +51,6 @@ public class FraudDetectorService {
 
         System.out.println("Order processada");
     }
-
-
-
-
     private static boolean isFraude(Order order) {
         return order.getAmount().compareTo(new BigDecimal("4500")) >= 0;
     }

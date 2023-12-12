@@ -26,6 +26,7 @@
         <module>service-fraud-detector</module>
         <module>service-log</module>
         <module>service-new-order</module>
+        <module>service-users</module>
     </modules>
 
     <dependencies>

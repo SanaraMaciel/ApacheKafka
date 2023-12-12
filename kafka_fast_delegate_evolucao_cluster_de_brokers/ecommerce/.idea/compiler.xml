@@ -3,6 +3,7 @@
   <component name="CompilerConfiguration">
     <excludeFromCompile>
       <directory url="file://$PROJECT_DIR$/service-email/src/main/resources/archetype-resources" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/service-users/src/main/resources/archetype-resources" includeSubdirectories="true" />
     </excludeFromCompile>
     <annotationProcessing>
       <profile name="Maven default annotation processors profile" enabled="true">
@@ -12,12 +13,14 @@
         <module name="service-log" />
         <module name="common-kafka" />
         <module name="service-fraud-detector" />
-        <module name="service-new-order" />
         <module name="service-email" />
+        <module name="service-users" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="service-email-" target="12" />
+      <module name="service-new-order (1)" target="12" />
+      <module name="service-new-order (2)" target="12" />
     </bytecodeTargetLevel>
   </component>
 </project>

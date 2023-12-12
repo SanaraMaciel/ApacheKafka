@@ -10,7 +10,7 @@ java:S3740"/Provide the parametrized type for this generic.(ππ8Ϋ”…Δ1
 L	java:S106'"+Replace this use of System.out by a logger.(°“ϊχόÿÿÿÿ8»•…Δ1
 \
 java:S6213(":Rename this variable to not match a restricted identifier.(΄•ώÿÿÿÿ8Ό•…Δ1
-a
-java:S2147/"DCombine this catch with the one at line 44, which has the same body.(δ Ή€8ί…Δ1
 {
-java:S2142/"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(δ Ή€8½•…Δ1
+java:S2142,"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(”ύΎ8•Ε¥ªΔ1
+a
+java:S1128"DRemove this unused import 'java.util.concurrent.ExecutionException'.(΅£ΨΝ8¶¦ªΔ1

@@ -1,0 +1,9 @@
+
+@
+java:S1659"%Declare "orderId" on a separate line.(½§ÁÒýÿÿÿÿ
+E
+java:S1068"*Remove this unused "userId" private field.(½§ÁÒýÿÿÿÿ
+F
+java:S1068"+Remove this unused "orderId" private field.(½§ÁÒýÿÿÿÿ
+E
+java:S1068"*Remove this unused "amount" private field.(Ñìñ¨üÿÿÿÿ
