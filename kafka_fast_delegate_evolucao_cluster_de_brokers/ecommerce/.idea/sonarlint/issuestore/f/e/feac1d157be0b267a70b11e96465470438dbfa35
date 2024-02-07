@@ -1,15 +1,0 @@
-
-L
-java:S3740"/Provide the parametrized type for this generic.(şùğ8çÿåÌÄ1
-q
-java:S20959"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(øŒ‰Èùÿÿÿÿ8øÿåÌÄ1
-q
-java:S20951"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(‰§¤´üÿÿÿÿ8ùÿåÌÄ1
-d
-java:S2095"GUse try-with-resources or close this "Statement" in a "finally" clause.(ÏÿÏ¹8ùÿåÌÄ1
-W
-java:S6213%":Rename this variable to not match a restricted identifier.(†ºÿ¼8„€æÌÄ1
-L	java:S106&"+Replace this use of System.out by a logger.(¬ó˜°ıÿÿÿÿ8„€æÌÄ1
-L	java:S106'"+Replace this use of System.out by a logger.(ƒÃŞúÿÿÿÿ8„€æÌÄ1
-L	java:S106("+Replace this use of System.out by a logger.(Ğ‡ó´şÿÿÿÿ8…€æÌÄ1
-L	java:S1065"+Replace this use of System.out by a logger.(§Å®Ñúÿÿÿÿ8‰€æÌÄ1

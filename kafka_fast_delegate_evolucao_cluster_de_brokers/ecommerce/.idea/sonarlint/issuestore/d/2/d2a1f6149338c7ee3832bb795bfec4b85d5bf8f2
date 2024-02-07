@@ -1,18 +1,0 @@
-
-L
-java:S3740"/Provide the parametrized type for this generic.(ß†Ó8û”‹…Ä1
-\
-java:S6213":Rename this variable to not match a restricted identifier.(ÒÈÇ¡øÿÿÿÿ8‰•‹…Ä1
-L	java:S106"+Replace this use of System.out by a logger.(¬ó˜°ıÿÿÿÿ8‰•‹…Ä1
-G	java:S106"+Replace this use of System.out by a logger.(“û»Ğ8‰•‹…Ä1
-L	java:S106"+Replace this use of System.out by a logger.(Ÿ‰‡çüÿÿÿÿ8Š•‹…Ä1
-L	java:S106 "+Replace this use of System.out by a logger.(Ğ‡ó´şÿÿÿÿ8Š•‹…Ä1
-F	java:S106!"+Replace this use of System.out by a logger.(Óİ~8Š•‹…Ä1
-L	java:S106""+Replace this use of System.out by a logger.(ÒöÁİûÿÿÿÿ8‹•‹…Ä1
-{
-java:S2142&"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ä ¹€8‹•‹…Ä1
-L	java:S106-"+Replace this use of System.out by a logger.(Ÿº»Ÿùÿÿÿÿ8Œ•‹…Ä1
-G	java:S1060"+Replace this use of System.out by a logger.(²øí¯8Œ•‹…Ä1
-G	java:S1064"+Replace this use of System.out by a logger.(Ç†¥ì8Œ•‹…Ä1
-v
-java:S1128"TRemove this unnecessary import: same package classes are always implicitly imported.(È€êùÿÿÿÿ8é©ì…Ä1

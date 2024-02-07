@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 /**
- * Servi�o para detectar fraudes refatorada
+ * Servi�o para detectar fraudes refatorada
  */
 public class FraudDetectorService {
 
@@ -42,7 +42,7 @@ public class FraudDetectorService {
         var order = record.value();
         //detectando uma fraude se ordem for maior que o valor 4500
         if (isFraude(order)) {
-            System.out.println("A Order � uma fraude");
+            System.out.println("A Order é uma fraude");
             orderDispatcher.send("ECOMMERCE_ORDER_REJECTED", order.getUserId(), order);
         } else {
             System.out.println("Ordem Aprovada: " + order);
@@ -51,6 +51,11 @@ public class FraudDetectorService {
 
         System.out.println("Order processada");
     }
+
+    /**verifica se a order recebida é uma fraude comparando ela com o valor 4500,00
+     * @param order
+     * @return um booleano que informa se é fraude (true) ou não (false)
+     */
     private static boolean isFraude(Order order) {
         return order.getAmount().compareTo(new BigDecimal("4500")) >= 0;
     }

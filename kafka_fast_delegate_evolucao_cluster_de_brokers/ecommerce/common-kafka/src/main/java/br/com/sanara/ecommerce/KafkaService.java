@@ -10,7 +10,6 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Properties;
 import java.util.UUID;
-import java.util.concurrent.ExecutionException;
 import java.util.regex.Pattern;
 
 class KafkaService<T> implements Closeable {
@@ -38,13 +37,13 @@ class KafkaService<T> implements Closeable {
             if (!records.isEmpty()) {
                 System.out.println("Encontrei " + records.count() + " registros");
                 for (var record : records) {
-                    //tratando a exceÁ„o pq o Kafka consumer n„o pode lanÁar exceÁ„o
+                    //tratando a exce√ß√£o pq o Kafka consumer n√£o pode lan√ßar exce√ß√£o
                     try {
                         parse.consume(record);
                     } catch (Exception e) {
-                        //qualquer exceÁ„o porque n„o importa qual exceÁ„o der precisamos tratar,
-                        //no caso sÛ vamos pegar a prÛxima
-                        //logar a exceÁ„o por enquanto
+                        //qualquer exce√ß√£o porque n√£o importa qual exce√ß√£o der precisamos tratar,
+                        //no caso s√≥ vamos pegar a pr√≥xima
+                        //logar a exce√ß√£o por enquanto
                         e.printStackTrace();
                     }
                 }
@@ -61,10 +60,10 @@ class KafkaService<T> implements Closeable {
         properties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, groupId);
         properties.setProperty(ConsumerConfig.CLIENT_ID_CONFIG, UUID.randomUUID().toString());
 
-        //configuraÁ„o criada para deserializaÁao do json em bytes
+        //configura√ß√£o criada para deserializa√ßao do json em bytes
         properties.setProperty(GsonDeserializer.TYPE_CONFIG, type.getName());
 
-        //sobrescreve todas as propriedades que j· existem pelas que vc passou no mapa
+        //sobrescreve todas as propriedades que j√° existem pelas que vc passou no mapa
         properties.putAll(overrideProperties);
 
         return properties;

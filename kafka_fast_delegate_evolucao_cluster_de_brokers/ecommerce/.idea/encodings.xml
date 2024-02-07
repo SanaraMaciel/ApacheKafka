@@ -6,9 +6,5 @@
     <file url="file://$PROJECT_DIR$/service-email/src/main/java" charset="ISO-8859-1" />
     <file url="file://$PROJECT_DIR$/service-email/src/main/java/EmailService.java" charset="ISO-8859-1" />
     <file url="file://$PROJECT_DIR$/service-email/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/service-users/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/service-users/src/main/java/br/com/sanara/ecommerce/Order.java" charset="ISO-8859-1" />
-    <file url="file://$PROJECT_DIR$/service-users/src/main/java/br/com/sanara/ecommerce/Order.java" charset="ISO-8859-1" />
-    <file url="file://$PROJECT_DIR$/service-users/src/main/resources" charset="UTF-8" />
   </component>
 </project>

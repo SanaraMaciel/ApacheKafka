@@ -12,11 +12,12 @@ public class Order {
         this.amount = amount;
     }
 
-    public String getUserId() {
-        return userId;
-    }
     public BigDecimal getAmount() {
         return amount;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 
     @Override
