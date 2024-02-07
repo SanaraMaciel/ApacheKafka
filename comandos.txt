@@ -1,43 +1,74 @@
-iniciando o zookeeper:
-.\bin\windows\zookeeper-server-start.bat config\zookeeper.properties
-
-iniciando o kafka:
-.\bin\windows\kafka-server-start.bat config\server.properties
-
-no linux sempre se usa os comandos com .sh no windows dentro da pasta bin sempre se usa os comandos .bat
 
 
-criando um tópico no kafka:
+									COMANDOS UTILIZADOS DURANTE A TRILHA
 
-.\bin\windows\kafka-topics.bat --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic LOJA_NOVO_PEDIDO
+**** iniciando o zookeeper:
+windows: bin\windows\zookeeper-server-start.bat config\zookeeper.properties
+linux: bin/zookeeper-server-start.sh config/zookeeper.properties
 
-.bin/kafka-topics.sh --create --bootstrap-server localhost:9082 --replication-factor 1 --partitions 1 --topic LOJA_NOVO_PEDIDO --> linux 
 
-mostrar os tópicos criados:
 
-.bin/kafka-topicos.sh --list --bootstrap-server localhost:9092  --> linux
+***** iniciando o kafka:
+windows:bin\windows\kafka-server-start.bat config\server.properties
+linux: bin/kafka-server-start.sh config/server.properties
 
-.\bin\windows\kafka-topics.bat --list --bootstrap-server localhost:9092
+Obs: no linux sempre se usa os comandos com .sh no windows dentro da pasta bin sempre se usa os comandos .bat
 
-rodando um produtor de msgs(que produz as msgs):
-.bin/kafka-console-producer.sh --broker-list localhost:9092  --topic LOJA_NOVO_PEDIDO --> linux
 
-.\bin\windows\kafka-console-producer.bat --broker-list localhost:9092 --topic LOJA_NOVO_PEDIDO
+***** criando um tópico no kafka:
+linux: bin\windows\kafka-topics.bat --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic LOJA_NOVO_PEDIDO
+windows: bin/kafka-topics.sh --create --bootstrap-server localhost:9082 --replication-factor 1 --partitions 1 --topic LOJA_NOVO_PEDIDO 
 
-consumindo um tópico:
-bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic LOJA_NOVO_PEDIDO --from-beginning --> linux
 
-.\bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic LOJA_NOVO_PEDIDO --from-beginning
 
-descrevendo os tópicos:
 
-.\bin\windows\kafka-topics.bat --describe --bootstrap-server localhost:9092 --describe
+**** mostrar os tópicos criados:
+linux: bin/kafka-topics.sh --list --bootstrap-server localhost:9092 
+windows: bin\windows\kafka-topics.bat --list --bootstrap-server localhost:9092
 
-alterar um tópico (número de partição):
 
-.\bin\windows\kafka-topics.bat --alter --zookeeper localhost:9092 --topic ECOMMERCE_NEW_ORDER --partitions 3
-./bin/kafka-topics.sh --alter --bootstrap-server localhost:9092 --topic ECOMMERCE_NEW_ORDER --partitions 3 -- esse funcionou devido a versão do kafka
 
-analisar os grupos de consumo:
 
-.\bin\windows\kafka-consumer-groups.bat --all-groups --bootstrap-server localhost:9092 --describe
+****** rodando um produtor de msgs(que produz as msgs):
+linux: bin/kafka-console-producer.sh --broker-list localhost:9092  --topic LOJA_NOVO_PEDIDO 
+windows: \bin\windows\kafka-console-producer.bat --broker-list localhost:9092 --topic LOJA_NOVO_PEDIDO
+
+
+
+
+
+****** consumindo um tópico desde a primeira msg que está armazenada:
+linux: bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic LOJA_NOVO_PEDIDO --from-beginning 
+windows: bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic LOJA_NOVO_PEDIDO --from-beginning
+
+
+
+
+********** descrevendo os tópicos:
+linux: bin/kafka-topics.sh --describe --bootstrap-server localhost:9092 --describe
+windows: bin\windows\kafka-topics.bat --describe --bootstrap-server localhost:9092 --describe
+
+
+
+********** alterar um tópico (número de partição):
+
+linux: bin/kafka-topics.sh --alter --bootstrap-server localhost:9092 --topic ECOMMERCE_NEW_ORDER --partitions 3 -- esse funcionou devido a versão do kafka
+
+windows: bin\windows\kafka-topics.bat --alter --zookeeper localhost:9092 --topic ECOMMERCE_NEW_ORDER --partitions 3
+
+
+
+
+******* analisar os grupos de consumo:
+
+windows: bin\windows\kafka-consumer-groups.bat --all-groups --bootstrap-server localhost:9092 --describe
+linux: bin\kafka-consumer-groups.sh --all-groups --bootstrap-server localhost:9092 --describe
+
+
+
+
+
+
+
+
+

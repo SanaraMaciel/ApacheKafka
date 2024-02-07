@@ -11,7 +11,7 @@ import java.util.Properties;
 public class DatabaseKafkaConsumer {
 
     private final KafkaConsumer<String, String> consumer;
-    private final Database database; // Sua classe de conexão com o banco de dados
+    private final Database database; // Sua classe de conexï¿½o com o banco de dados
 
     public DatabaseKafkaConsumer(String topic, Database database) {
         Properties props = new Properties();
