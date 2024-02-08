@@ -21,8 +21,8 @@ class KafkaDispatcher<T> implements Closeable {
     private static Properties properties() {
         var properties = new Properties();
         properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
-        properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, GsonSerializer.class.getName());
+        properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         return properties;
     }
 
@@ -38,7 +38,7 @@ class KafkaDispatcher<T> implements Closeable {
         producer.send(record, callback).get();
     }
 
-    //Interface que ajuda a fazer o fechamento tanto por exception quanto após a finalização do recurso
+    //Interface que ajuda a fazer o fechamento tanto por exception quanto apï¿½s a finalizaï¿½ï¿½o do recurso
     @Override
     public void close() {
         producer.close();

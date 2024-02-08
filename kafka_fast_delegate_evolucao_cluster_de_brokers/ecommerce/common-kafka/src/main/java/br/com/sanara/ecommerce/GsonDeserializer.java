@@ -21,7 +21,7 @@ public class GsonDeserializer<T> implements Deserializer<T> {
             //transforma em uma classe
             this.type = (Class<T>) Class.forName(typeName);
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException("tipo de deserialização não existe no classpath" + e);
+            throw new RuntimeException("tipo de deserializaï¿½ï¿½o nï¿½o existe no classpath" + typeName);
         }
 
     }
