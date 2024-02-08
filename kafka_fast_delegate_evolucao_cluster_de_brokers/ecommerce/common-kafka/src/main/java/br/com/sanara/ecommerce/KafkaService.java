@@ -41,9 +41,8 @@ class KafkaService<T> implements Closeable {
                     try {
                         parse.consume(record);
                     } catch (Exception e) {
-                        //qualquer exceção porque não importa qual exceção der precisamos tratar,
+                        //qualquer exceção porque não importa qual exceção der não vamos tratar,
                         //no caso só vamos pegar a próxima
-                        //logar a exceção por enquanto
                         e.printStackTrace();
                     }
                 }
