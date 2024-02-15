@@ -35,6 +35,7 @@ public class NewOrderServlet extends HttpServlet {
             var order = new Order(orderId, amount, email);
             orderDispatcher.send("ECOMMERCE_NEW_ORDER", email, order);
 
+
             var emailCode = "Obrigado por comprar conosco estamos processando sua compra!";
             emailDispatcher.send("ECOMMERCE_SEND_EMAIL", email, emailCode);
             System.out.println("Processo da nova compra finalizado.");

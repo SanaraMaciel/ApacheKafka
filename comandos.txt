@@ -16,8 +16,8 @@ Obs: no linux sempre se usa os comandos com .sh no windows dentro da pasta bin s
 
 
 ***** criando um tópico no kafka:
-linux: bin\windows\kafka-topics.bat --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic LOJA_NOVO_PEDIDO
-windows: bin/kafka-topics.sh --create --bootstrap-server localhost:9082 --replication-factor 1 --partitions 1 --topic LOJA_NOVO_PEDIDO 
+windows: bin\windows\kafka-topics.bat --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic LOJA_NOVO_PEDIDO
+linux: bin/kafka-topics.sh --create --bootstrap-server localhost:9082 --replication-factor 1 --partitions 1 --topic LOJA_NOVO_PEDIDO 
 
 
 
@@ -62,7 +62,7 @@ windows: bin\windows\kafka-topics.bat --alter --zookeeper localhost:9092 --topic
 ******* analisar os grupos de consumo:
 
 windows: bin\windows\kafka-consumer-groups.bat --all-groups --bootstrap-server localhost:9092 --describe
-linux: bin\kafka-consumer-groups.sh --all-groups --bootstrap-server localhost:9092 --describe
+linux: bin/kafka-consumer-groups.sh --all-groups --bootstrap-server localhost:9092 --describe
 
 
 
