@@ -65,6 +65,15 @@ windows: bin\windows\kafka-consumer-groups.bat --all-groups --bootstrap-server l
 linux: bin/kafka-consumer-groups.sh --all-groups --bootstrap-server localhost:9092 --describe
 
 
+*********** alterar a para que o broker se replique em outro broker:
+obs: o fator de replicação não pode ser alterado com o comando alter, o kafka não permite Option "[replication-factor]" can't be used with option "[alter]"
+Option                                   Description               
+linux: bin/kafka-topics.sh --zookeeper  localhost:2181 --alter --topic ECOMMERCE_NEW_ORDER --partitions 3 --replication-factor 2 
+bin/kafka-topics.sh --bootstrap-server localhost:9092 --alter --topic ECOMMERCE_NEW_ORDER --partitions 3 --replication-factor 2 --- esse deu certo devido a versão utilizada do kafka
+
+
+
+*********** adicionando uma nova propriedade de replicação no config/server.properties:
 
 
 
