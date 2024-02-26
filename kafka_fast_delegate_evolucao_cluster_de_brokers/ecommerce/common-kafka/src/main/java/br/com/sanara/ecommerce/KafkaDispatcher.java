@@ -23,6 +23,15 @@ class KafkaDispatcher<T> implements Closeable {
         properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, GsonSerializer.class.getName());
         properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+
+        //propriedade para retornar somente os tópicos que já foram replicados do servidor
+        //para ter certeza que o request foi completado e que o leader fez a replicação da msg
+        //Por fim, temos a configuração de acks igual a all, que significa que o líder irá
+        // esperar todas as réplicas que estão em sync (sincronizadas) receberem a informação.
+        // Com todas em sincronia, podemos confirmar que a mensagem foi enviada,
+        // porque se o líder cair, as réplicas têm essa informação.
+        properties.setProperty(ProducerConfig.ACKS_CONFIG, "all");
+
         return properties;
     }
 
