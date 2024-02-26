@@ -76,6 +76,10 @@ bin/kafka-topics.sh --bootstrap-server localhost:9092 --alter --topic ECOMMERCE_
 *********** adicionando uma nova propriedade de replicação no config/server.properties:
 
 
+***** conferindo todos os tópicos pelo zookeeper:
+linux: bin/kafka-topics.sh --describe --zookeeper localhost:2181
+
+
 
 
 
