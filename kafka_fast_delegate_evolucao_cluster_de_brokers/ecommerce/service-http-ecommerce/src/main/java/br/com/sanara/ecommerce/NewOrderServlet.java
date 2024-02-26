@@ -36,9 +36,9 @@ public class NewOrderServlet extends HttpServlet {
             orderDispatcher.send("ECOMMERCE_NEW_ORDER", email, order);
 
 
-            /*var emailCode = orderId + "Obrigado por comprar conosco estamos processando sua compra!";
+            var emailCode = orderId + "Obrigado por comprar conosco estamos processando sua compra!";
             emailDispatcher.send("ECOMMERCE_SEND_EMAIL", email, emailCode);
-            System.out.println("Processo da nova compra finalizado.");*/
+            System.out.println("Processo da nova compra finalizado.");
 
             //mostrando a resposta na tela do browser com o sódigo 200
             resp.setStatus(HttpServletResponse.SC_OK);
