@@ -5,8 +5,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 public class GenerateAllReportServlet extends HttpServlet {
@@ -25,8 +23,10 @@ public class GenerateAllReportServlet extends HttpServlet {
 
             //dispatcher pra ficar escutando o tópico de relatórios
             //fazendo a tarefa em batch
-            batchDispatcher.send("SEND_MESSAGE_TO_ALL_USERS", "USER_GENERATE_READING_REPORT",
-                    "USER_GENERATE_READING_REPORT");
+            batchDispatcher.send("ECOMMERCE_SEND_MESSAGE_TO_ALL_USERS",
+                    "ECOMMERCE_USER_GENERATE_READING_REPORT",
+                    new CorrelationId(GenerateAllReportServlet.class.getSimpleName()),
+                    "ECOMMERCE_USER_GENERATE_READING_REPORT");
 
             System.out.println("Enviando relatório a todos os usuários");
             resp.setStatus(HttpServletResponse.SC_OK);

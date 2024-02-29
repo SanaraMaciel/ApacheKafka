@@ -1,8 +1,6 @@
 package br.com.sanara.ecommerce;
 
-import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.common.serialization.StringDeserializer;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
-import java.util.regex.Pattern;
 
 public class BatchSendMessageService {
 
@@ -33,9 +30,9 @@ public class BatchSendMessageService {
     public static void main(String[] args) throws SQLException {
         var batchService = new BatchSendMessageService();
         try (var service = new KafkaService(BatchSendMessageService.class.getSimpleName(),
-                "SEND_MESSAGE_TO_ALL_USERS", batchService::parse, String.class,
+                "ECOMMERCE_SEND_MESSAGE_TO_ALL_USERS", batchService::parse, String.class,
                 //Map.of(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName()))) {
-                Map.of())){
+                Map.of())) {
             service.run();
         }
     }
@@ -50,7 +47,8 @@ public class BatchSendMessageService {
         System.out.println("Topico: " + message.getPayload());
 
         for (User user : getAllUsers()) {
-            userDispatcher.send(message.getPayload(), user.getUuid(), user);
+            userDispatcher.send(message.getPayload(), user.getUuid(),
+                    message.getId().continueWith(BatchSendMessageService.class.getSimpleName()), user);
         }
 
     }
