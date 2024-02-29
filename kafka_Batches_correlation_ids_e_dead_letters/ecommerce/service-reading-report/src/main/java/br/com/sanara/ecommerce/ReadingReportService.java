@@ -29,14 +29,14 @@ public class ReadingReportService {
 
     private void parse(ConsumerRecord<String, User> record) throws IOException {
         System.out.println("------------------------------------------");
-        System.out.println("Processing report for " + record.value());
+        System.out.println("Processando relatório para " + record.value());
 
         var user = record.value();
         var target = new File(user.getReportPath());
         IO.copyTo(SOURCE, target);
-        IO.append(target, "Created for " + user.getUuid());
+        IO.append(target, "Criado por " + user.getUuid());
 
-        System.out.println("File created: " + target.getAbsolutePath());
+        System.out.println("Arquivo criado: " + target.getAbsolutePath());
 
     }
 
