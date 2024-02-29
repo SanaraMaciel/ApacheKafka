@@ -10,7 +10,7 @@ import java.nio.file.StandardOpenOption;
 public class IO {
 
 
-    public static void cotyTo(Path source, File target) throws IOException {
+    public static void copyTo(Path source, File target) throws IOException {
         //copia o arquivo do diretório pai e substitui caso exista
         target.getParentFile().mkdirs();
         Files.copy(source, target.toPath(), StandardCopyOption.REPLACE_EXISTING);

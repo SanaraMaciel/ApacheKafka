@@ -21,24 +21,21 @@ public class GenerateAllReportServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         try {
 
             //dispatcher pra ficar escutando o tópico de relatórios
             //fazendo a tarefa em batch
-            batchDispatcher.send("SEND_MESSAGE_TO_ALL_USERS", "USER_GENERATE_READING_REPORT",
-                    "TESTE");
+            batchDispatcher.send("SEND_MESSAGE_TO_ALL_USERS", "USER_GENERATE_READING_REPORT", "USER_GENERATE_READING_REPORT");
 
-            System.out.println("Mensagem enviada cm o relatorio de todos os usuarios.");
+            System.out.println("Enviando relatório a todos os usuários");
             resp.setStatus(HttpServletResponse.SC_OK);
-            resp.getWriter().println("Relatorios gerados.");
-
+            resp.getWriter().println("Relatórios gerados e enviados!");
 
         } catch (ExecutionException e) {
             throw new ServletException(e);
         } catch (InterruptedException e) {
             throw new ServletException(e);
         }
-
     }
+
 }
