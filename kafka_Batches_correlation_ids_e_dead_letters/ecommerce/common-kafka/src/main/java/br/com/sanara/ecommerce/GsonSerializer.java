@@ -9,7 +9,9 @@ import org.apache.kafka.common.serialization.Serializer;
  * @param <T>
  */
 public class GsonSerializer<T> implements Serializer<T> {
-    private final Gson gson = new GsonBuilder().create();
+
+    //alterado o serializer para conforme a classe a ser recebida, corrigindo exceção
+    private final Gson gson = new GsonBuilder().registerTypeAdapter(Message.class, new MessageAdapter()).create();
 
     @Override
     public byte[] serialize(String s, T object) {
