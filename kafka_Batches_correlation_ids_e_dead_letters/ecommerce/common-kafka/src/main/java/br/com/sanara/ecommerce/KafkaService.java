@@ -13,17 +13,17 @@ import java.util.UUID;
 import java.util.regex.Pattern;
 
 class KafkaService<T> implements Closeable {
-    private final KafkaConsumer<String, T> consumer;
+    private final KafkaConsumer<String, Message<T>> consumer;
     private final ConsumerFunction parse;
 
 
 
-    KafkaService(String groupId, String topic, ConsumerFunction parse, Class<T> type, Map<String,String> properties) {
+    KafkaService(String groupId, String topic, ConsumerFunction<T> parse, Class<T> type, Map<String,String> properties) {
         this(parse, groupId, type, properties);
         consumer.subscribe(Collections.singletonList(topic));
     }
 
-    KafkaService(String groupId, Pattern topic, ConsumerFunction parse, Class<T> type, Map<String,String> properties) {
+    KafkaService(String groupId, Pattern topic, ConsumerFunction<T> parse, Class<T> type, Map<String,String> properties) {
         this(parse, groupId, type, properties);
         consumer.subscribe(topic);
     }
@@ -62,7 +62,9 @@ class KafkaService<T> implements Closeable {
         properties.setProperty(ConsumerConfig.CLIENT_ID_CONFIG, UUID.randomUUID().toString());
 
         //configuração criada para deserializaçao do json em bytes
-        properties.setProperty(GsonDeserializer.TYPE_CONFIG, type.getName());
+        //properties.setProperty(GsonDeserializer.TYPE_CONFIG, type.getName());
+
+        properties.setProperty(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, "1");
 
         //sobrescreve todas as propriedades que já existem pelas que vc passou no mapa
         properties.putAll(overrideProperties);

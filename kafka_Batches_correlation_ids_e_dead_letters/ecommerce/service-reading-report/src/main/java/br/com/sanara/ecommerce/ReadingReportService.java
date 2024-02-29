@@ -1,7 +1,6 @@
 package br.com.sanara.ecommerce;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import scala.collection.script.Message;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,11 +26,12 @@ public class ReadingReportService {
         }
     }
 
-    private void parse(ConsumerRecord<String, User> record) throws IOException {
+    private void parse(ConsumerRecord<String, Message<User>> record) throws IOException {
         System.out.println("------------------------------------------");
         System.out.println("Processando relatório para " + record.value());
 
-        var user = record.value();
+        var message = record.value();
+        var user = message.getPayload();
         var target = new File(user.getReportPath());
         IO.copyTo(SOURCE, target);
         IO.append(target, "Criado por " + user.getUuid());

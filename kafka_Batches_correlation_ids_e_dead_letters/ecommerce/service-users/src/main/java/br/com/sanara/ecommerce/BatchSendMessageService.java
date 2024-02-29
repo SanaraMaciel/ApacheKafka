@@ -34,20 +34,23 @@ public class BatchSendMessageService {
         var batchService = new BatchSendMessageService();
         try (var service = new KafkaService(BatchSendMessageService.class.getSimpleName(),
                 "SEND_MESSAGE_TO_ALL_USERS", batchService::parse, String.class,
-                Map.of(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName()))) {
+                //Map.of(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName()))) {
+                Map.of())){
             service.run();
         }
     }
 
     private final KafkaDispatcher<User> userDispatcher = new KafkaDispatcher<>();
 
-    private void parse(ConsumerRecord<String, String> record) throws ExecutionException, InterruptedException, SQLException {
+    private void parse(ConsumerRecord<String, Message<String>> record) throws ExecutionException, InterruptedException, SQLException {
         System.out.println("--------------------------------------------");
         System.out.println("Processando novo batch");
-        System.out.println("Topico: " + record.value());
+
+        var message = record.value();
+        System.out.println("Topico: " + message.getPayload());
 
         for (User user : getAllUsers()) {
-            userDispatcher.send(record.value(), user.getUuid(), user);
+            userDispatcher.send(message.getPayload(), user.getUuid(), user);
         }
 
     }
