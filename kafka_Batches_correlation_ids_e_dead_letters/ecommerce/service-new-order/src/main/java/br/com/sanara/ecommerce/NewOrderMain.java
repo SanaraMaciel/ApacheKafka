@@ -21,10 +21,10 @@ public class NewOrderMain {
                     var amount = new BigDecimal(Math.random() * 5000 + 1);
 
                     var order = new Order(orderId, amount, email);
-                    orderDispatcher.send("ECOMMERCE_NEW_ORDER", email, order);
+                    //orderDispatcher.send("ECOMMERCE_NEW_ORDER", email, order);
 
                     Email emailCode = new Email("email","obrigado por comprar com a gente");
-                    emailDispatcher.send("ECOMMERCE_SEND_EMAIL", email, emailCode);
+                    //emailDispatcher.send("ECOMMERCE_SEND_EMAIL", email, emailCode);
                 }
 
             }

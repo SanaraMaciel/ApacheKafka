@@ -12,7 +12,7 @@ public class EmailService {
     public static void main(String[] args) {
         var emailService = new EmailService();
         try (var service = new KafkaService(EmailService.class.getSimpleName(),
-                Pattern.compile("ECOMMERCE_SEND_EMAIL") , emailService::parse, String.class,
+                Pattern.compile("ECOMMERCE_SEND_EMAIL"), emailService::parse,
                 Map.of(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName()))) {
             service.run();
         }

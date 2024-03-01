@@ -30,7 +30,7 @@ public class BatchSendMessageService {
     public static void main(String[] args) throws SQLException {
         var batchService = new BatchSendMessageService();
         try (var service = new KafkaService(BatchSendMessageService.class.getSimpleName(),
-                "ECOMMERCE_SEND_MESSAGE_TO_ALL_USERS", batchService::parse, String.class,
+                "ECOMMERCE_SEND_MESSAGE_TO_ALL_USERS", batchService::parse,
                 //Map.of(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName()))) {
                 Map.of())) {
             service.run();
