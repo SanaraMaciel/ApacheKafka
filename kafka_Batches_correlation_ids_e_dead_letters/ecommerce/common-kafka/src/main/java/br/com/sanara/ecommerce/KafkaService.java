@@ -16,8 +16,6 @@ class KafkaService<T> implements Closeable {
     private final KafkaConsumer<String, Message<T>> consumer;
     private final ConsumerFunction parse;
 
-
-
     KafkaService(String groupId, String topic, ConsumerFunction<T> parse, Map<String,String> properties) {
         this(parse, groupId, properties);
         consumer.subscribe(Collections.singletonList(topic));
