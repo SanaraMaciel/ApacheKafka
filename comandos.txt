@@ -80,6 +80,16 @@ bin/kafka-topics.sh --bootstrap-server localhost:9092 --alter --topic ECOMMERCE_
 linux: bin/kafka-topics.sh --describe --zookeeper localhost:2181
 
 
+*************** No #kafka não existe funcionalidade para apagar os eventos. O que temos é a polícia de limpeza configurada em nível tópico, 
+que está relacionado com a retenção: retention.ms e retention.bytes:
+	# Limpeza por eliminação
+	cleanup.policy=delete
+
+	# Limpeza por compactação
+	cleanup.policy=compact
+
+	# Ambas
+	cleanup.policy=delete,compact
 
 
 

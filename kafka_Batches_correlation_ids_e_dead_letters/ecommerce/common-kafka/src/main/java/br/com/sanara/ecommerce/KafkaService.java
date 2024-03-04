@@ -10,48 +10,53 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Properties;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 import java.util.regex.Pattern;
 
 class KafkaService<T> implements Closeable {
     private final KafkaConsumer<String, Message<T>> consumer;
     private final ConsumerFunction parse;
 
-    KafkaService(String groupId, String topic, ConsumerFunction<T> parse, Map<String,String> properties) {
+    KafkaService(String groupId, String topic, ConsumerFunction<T> parse, Map<String, String> properties) {
         this(parse, groupId, properties);
         consumer.subscribe(Collections.singletonList(topic));
     }
 
-    KafkaService(String groupId, Pattern topic, ConsumerFunction<T> parse, Map<String,String> properties) {
-        this(parse, groupId,  properties);
+    KafkaService(String groupId, Pattern topic, ConsumerFunction<T> parse, Map<String, String> properties) {
+        this(parse, groupId, properties);
         consumer.subscribe(topic);
     }
 
-    private KafkaService(ConsumerFunction parse, String groupId, Map<String,String> properties) {
+    private KafkaService(ConsumerFunction parse, String groupId, Map<String, String> properties) {
         this.parse = parse;
         this.consumer = new KafkaConsumer<>(getProperties(groupId, properties));
     }
 
-    void run() {
-        while (true) {
-            var records = consumer.poll(Duration.ofMillis(100));
-            if (!records.isEmpty()) {
-                System.out.println("Encontrei " + records.count() + " registros");
-                for (var record : records) {
-                    //tratando a exceção pq o Kafka consumer não pode lançar exceção
-                    try {
-                        parse.consume(record);
-                    } catch (Exception e) {
-                        //qualquer exceção porque não importa qual exceção der não vamos tratar,
-                        //no caso só vamos pegar a próxima
-                        e.printStackTrace();
+    void run() throws ExecutionException, InterruptedException {
+        try (var deadLetterDispatcher = new KafkaDispatcher<>()) {
+            while (true) {
+                var records = consumer.poll(Duration.ofMillis(100));
+                if (!records.isEmpty()) {
+                    System.out.println("Encontrei " + records.count() + " registros");
+                    for (var record : records) {
+                        //tratando a exceção pq o Kafka consumer não pode lançar exceção
+                        try {
+                            parse.consume(record);
+                        } catch (Exception e) {
+                            //logando as falhas com topico deadletter -- batch sincrono
+                            e.printStackTrace();
+                            var message = record.value();
+                            deadLetterDispatcher.send("ECOMMERCE_DEADLETTER", message.getId().toString(),
+                                    message.getId().continueWith("DeadLetter"),
+                                    new GsonSerializer().serialize("", message));
+                        }
                     }
                 }
             }
         }
-
     }
 
-    private Properties getProperties(String groupId, Map<String,String> overrideProperties) {
+    private Properties getProperties(String groupId, Map<String, String> overrideProperties) {
         var properties = new Properties();
         properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         properties.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());

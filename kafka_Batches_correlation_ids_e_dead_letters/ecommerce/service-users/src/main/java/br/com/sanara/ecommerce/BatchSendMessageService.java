@@ -27,7 +27,7 @@ public class BatchSendMessageService {
         }
     }
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws ExecutionException, InterruptedException, SQLException {
         var batchService = new BatchSendMessageService();
         try (var service = new KafkaService(BatchSendMessageService.class.getSimpleName(),
                 "ECOMMERCE_SEND_MESSAGE_TO_ALL_USERS", batchService::parse,
@@ -38,12 +38,14 @@ public class BatchSendMessageService {
 
     private final KafkaDispatcher<User> userDispatcher = new KafkaDispatcher<>();
 
-    private void parse(ConsumerRecord<String, Message<String>> record) throws ExecutionException, InterruptedException, SQLException {
+    private void parse(ConsumerRecord<String, Message<String>> record) throws SQLException {
         System.out.println("--------------------------------------------");
         System.out.println("Processando novo batch");
 
         var message = record.value();
         System.out.println("Topico: " + message.getPayload());
+
+        if(true) throw new RuntimeException("erro forçado");
 
         for (User user : getAllUsers()) {
             //userDispatcher.send(message.getPayload(), user.getUuid(),

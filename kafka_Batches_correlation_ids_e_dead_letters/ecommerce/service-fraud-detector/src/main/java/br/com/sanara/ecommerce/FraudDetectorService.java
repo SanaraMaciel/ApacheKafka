@@ -14,7 +14,7 @@ public class FraudDetectorService {
     //kafka dispatcher para enviar mensagens
     private final KafkaDispatcher<Order> orderDispatcher = new KafkaDispatcher<>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
         var fraudService = new FraudDetectorService();
         try (var service = new KafkaService(FraudDetectorService.class.getSimpleName(),
                 "ECOMMERCE_NEW_ORDER", fraudService::parse, Map.of())) {
