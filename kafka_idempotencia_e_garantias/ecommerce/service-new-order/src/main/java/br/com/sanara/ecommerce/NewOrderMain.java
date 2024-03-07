@@ -19,14 +19,16 @@ public class NewOrderMain {
                 var email = Math.random() + "@email.com";
                 for (var i = 0; i < 10; i++) {
 
+                    var id = new CorrelationId(NewOrderMain.class.getSimpleName());
+
                     var orderId = UUID.randomUUID().toString();
                     var amount = new BigDecimal(Math.random() * 5000 + 1);
 
                     var order = new Order(orderId, amount, email);
-                    //orderDispatcher.send("ECOMMERCE_NEW_ORDER", email, order);
+                    orderDispatcher.send("ECOMMERCE_NEW_ORDER", email, id, order);
 
                     Email emailCode = new Email("email","obrigado por comprar com a gente");
-                    //emailDispatcher.send("ECOMMERCE_SEND_EMAIL", email, emailCode);
+                    emailDispatcher.send("ECOMMERCE_SEND_EMAIL", email, id, emailCode);
                 }
 
             }
