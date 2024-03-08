@@ -1,4 +1,4 @@
-package br.com.sanara.ecommerce;
+package br.com.sanara.ecommerce.consumer;
 
 public interface ServiceFactory<T> {
     ConsumerService<T> create();
