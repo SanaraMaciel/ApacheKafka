@@ -45,8 +45,8 @@ windows: bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:909
 
 
 ********** descrevendo os tópicos:
-linux: bin/kafka-topics.sh --describe --bootstrap-server localhost:9092 --describe
-windows: bin\windows\kafka-topics.bat --describe --bootstrap-server localhost:9092 --describe
+linux: bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe
+windows: bin\windows\kafka-topics.bat --bootstrap-server localhost:9092 --describe
 
 
 

@@ -72,6 +72,11 @@ public class KafkaService<T> implements Closeable {
 
         properties.setProperty(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, "1");
 
+        //configura o offset qdo não tem o offset inicial inndicando
+        // da onde ele deve começar, e o que fazer qdo não tem o inicial ou qdo os dados foram apagados
+        //latest é o mais recente
+        properties.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
+
         //sobrescreve todas as propriedades que já existem pelas que vc passou no mapa
         properties.putAll(overrideProperties);
 
