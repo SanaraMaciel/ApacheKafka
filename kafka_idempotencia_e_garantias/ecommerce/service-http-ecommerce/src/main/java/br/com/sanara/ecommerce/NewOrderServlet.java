@@ -34,7 +34,7 @@ public class NewOrderServlet extends HttpServlet {
             var order = new Order(orderId, amount, email);
             orderDispatcher.send("ECOMMERCE_NEW_ORDER", email, new CorrelationId(NewOrderServlet.class.getSimpleName()), order);
 
-            //mostrando a resposta na tela do browser com o sódigo 200
+            //mostrando a resposta na tela do browser com o código 200
             resp.setStatus(HttpServletResponse.SC_OK);
             resp.getWriter().println("Processo da nova compra finalizado.");
 
