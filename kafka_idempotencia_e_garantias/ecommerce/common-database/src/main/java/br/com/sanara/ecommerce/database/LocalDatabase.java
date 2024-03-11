@@ -1,7 +1,7 @@
 package br.com.sanara.ecommerce.database;
 
+import java.io.IOException;
 import java.sql.*;
-import java.util.UUID;
 
 public class LocalDatabase {
 
@@ -27,6 +27,7 @@ public class LocalDatabase {
 
     /**
      * faz um update no banco conforme parametro e query
+     *
      * @param statement
      * @param params
      * @throws SQLException
@@ -38,6 +39,7 @@ public class LocalDatabase {
 
     /**
      * faz uma busca no banco conforme query e parametro
+     *
      * @param query
      * @param params
      * @return
@@ -54,5 +56,9 @@ public class LocalDatabase {
             preparedStatement.setString(i + 1, params[i]);
         }
         return preparedStatement;
+    }
+
+    public void close() throws SQLException {
+            connection.close();
     }
 }
