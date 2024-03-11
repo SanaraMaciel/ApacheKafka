@@ -3,6 +3,7 @@ package br.com.sanara.ecommerce;
 import br.com.sanara.ecommerce.consumer.ConsumerService;
 import br.com.sanara.ecommerce.consumer.KafkaService;
 import br.com.sanara.ecommerce.consumer.ServiceRunner;
+import br.com.sanara.ecommerce.database.LocalDatabase;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
 import java.sql.Connection;
@@ -13,24 +14,18 @@ import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 /**
- * Serviço para detectar novos usuários ao fazer uma order de compra
+ * Serviço para detectar novos usuários ao fazer uma order de compra -- refatorada
  */
 public class CreateUserService implements ConsumerService<Order> {
 
-    private final Connection connection;
+    private final LocalDatabase database;
 
-    private CreateUserService() throws SQLException {
-        String url = "jdbc:sqlite:target/users_database.db";
-        this.connection = DriverManager.getConnection(url);
-
-        try {
-            //criando uma tabela
-            connection.createStatement().execute("create table Users (uuid varchar(200) primary key, " +
-                    "email varchar(200))");
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
+    CreateUserService() throws SQLException {
+        this.database = new LocalDatabase("users_database");
+        database.createIfNotExists("create table Users (uuid varchar(200) primary key, " +
+                "email varchar(200))");
     }
+
 
     public static void main(String[] args) {
         new ServiceRunner(CreateUserService::new).start(1);
@@ -60,21 +55,17 @@ public class CreateUserService implements ConsumerService<Order> {
     }
 
     private void insertNewUser(String email) throws SQLException {
-        var insert = connection.prepareStatement("insert into Users ( uuid, email) " +
-                "values(?, ?)");
         var uuid = UUID.randomUUID().toString();
-        insert.setString(1, uuid);
-        insert.setString(2, email);
-        insert.execute();
+        database.update("insert into Users ( uuid, email) " +
+                "values(?, ?)", uuid, email);
 
         System.out.println("Usuário de uuid: " + uuid + "  e email " + email + "adicionado");
     }
 
     private boolean isNewUser(String email) throws SQLException {
-        var exists = connection.prepareStatement("select uuid from Users " +
-                "where email = ? limit 1");
-        exists.setString(1, email);
-        var results = exists.executeQuery();
+        var results = database.query("select uuid from Users " +
+                "where email = ? limit 1", email);
+
         return !results.next();
     }
 
