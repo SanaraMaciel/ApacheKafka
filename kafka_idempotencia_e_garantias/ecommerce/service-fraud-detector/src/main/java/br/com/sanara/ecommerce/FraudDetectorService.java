@@ -1,30 +1,47 @@
 package br.com.sanara.ecommerce;
 
+import br.com.sanara.ecommerce.consumer.ConsumerService;
 import br.com.sanara.ecommerce.consumer.KafkaService;
+import br.com.sanara.ecommerce.consumer.ServiceRunner;
+import br.com.sanara.ecommerce.database.LocalDatabase;
 import br.com.sanara.ecommerce.dispatcher.KafkaDispatcher;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 /**
- * Servi�o para detectar fraudes refatorada
+ * Servico para detectar fraudes refatorada
  */
-public class FraudDetectorService {
+public class FraudDetectorService implements ConsumerService<Order> {
 
-    //kafka dispatcher para enviar mensagens
-    private final KafkaDispatcher<Order> orderDispatcher = new KafkaDispatcher<>();
+    private final LocalDatabase database;
 
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
-        var fraudService = new FraudDetectorService();
-        try (var service = new KafkaService(FraudDetectorService.class.getSimpleName(),
-                "ECOMMERCE_NEW_ORDER", fraudService::parse, Map.of())) {
-            service.run();
-        }
+    FraudDetectorService() throws SQLException {
+        this.database = new LocalDatabase("frauds_database");
+        database.createIfNotExists("create table Orders (uuid varchar(200) primary key, " +
+                "is_fraud boolean)");
     }
 
-    private void parse(ConsumerRecord<String, Message<Order>> record) throws ExecutionException, InterruptedException {
+    private final KafkaDispatcher<Order> orderDispatcher = new KafkaDispatcher<>();
+
+    public static void main(String[] args) {
+        new ServiceRunner(FraudDetectorService::new).start(1);
+    }
+
+    @Override
+    public String getTopic() {
+        return "ECOMMERCE_NEW_ORDER";
+    }
+
+    @Override
+    public String getConsumerGroup() {
+        return FraudDetectorService.class.getSimpleName();
+    }
+
+    public void parse(ConsumerRecord<String, Message<Order>> record) throws ExecutionException, InterruptedException, SQLException {
         System.out.println("--------------------------------------------");
         System.out.println("Processando nova ordem, checando por fraude");
         System.out.println(record.key());
@@ -33,26 +50,40 @@ public class FraudDetectorService {
         System.out.println(record.offset());
 
         var message = record.value();
+        var order = message.getPayload();
+        //só processa se a order é fraude caso ela não foi processada ainda
+        if (wasProcessed(order)) {
+            System.out.println("A Ordem " + order.getOrderId() + " já foi processada!");
+            return;
+        }
 
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        //acessando a ordem
-        var order = message.getPayload();
+
         //detectando uma fraude se ordem for maior que o valor 4500
         if (isFraude(order)) {
+            database.update("INSERT INTO Orders (uuid,is_fraud) VALUES (?, true)", order.getOrderId());
+
             System.out.println("A Order é uma fraude");
             orderDispatcher.send("ECOMMERCE_ORDER_REJECTED", order.getEmail(),
                     message.getId().continueWith(FraudDetectorService.class.getSimpleName()), order);
         } else {
+            database.update("INSERT INTO Orders (uuid,is_fraud) VALUES (?, false)", order.getOrderId());
             System.out.println("Ordem Aprovada: " + order);
             orderDispatcher.send("ECOMMERCE_ORDER_APPROVED", order.getEmail(),
                     message.getId().continueWith(FraudDetectorService.class.getSimpleName()), order);
         }
 
         System.out.println("Order processada");
+    }
+
+    private boolean wasProcessed(Order order) throws SQLException {
+        var results = database.query("select uuid from Orders where uuid = ? limit 1",
+                order.getOrderId());
+        return results.next();
     }
 
     /**
