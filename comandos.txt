@@ -92,6 +92,6 @@ que está relacionado com a retenção: retention.ms e retention.bytes:
 	cleanup.policy=delete,compact
 
 
-
+link de explicação do kafka transaction: medium.com/@mykidong/kafka-transaction-56f022af1b0c
 
 

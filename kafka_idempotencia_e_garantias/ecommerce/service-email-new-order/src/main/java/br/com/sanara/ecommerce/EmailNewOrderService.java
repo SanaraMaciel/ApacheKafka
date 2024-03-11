@@ -12,7 +12,7 @@ public class EmailNewOrderService implements ConsumerService<Order> {
     //kafka dispatcher para enviar mensagens
     private final KafkaDispatcher<String> emailDispatcher = new KafkaDispatcher<>();
 
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
+    public static void main(String[] args) {
         new ServiceRunner(EmailNewOrderService::new).start(1);
     }
 
