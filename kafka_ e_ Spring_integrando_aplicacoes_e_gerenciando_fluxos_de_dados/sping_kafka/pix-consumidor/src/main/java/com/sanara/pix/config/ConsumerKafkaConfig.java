@@ -16,6 +16,14 @@ import org.springframework.kafka.support.serializer.JsonSerializer;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * classe de configuração do consumidor kafka
+ * BOOTSTRAP_SERVERS_CONFIG(bootstrapAddress) -- configuração do kafka que vamos acessar
+ * KEY_DESERIALIZER_CLASS_CONFIG(StringDeserializer.class) -- deserializador da classe
+ * VALUE_DESERIALIZER_CLASS_CONFIG(JsonSerializer.class) -- classe objeto que vamos deserializar p/ o retorno
+ * JsonDeserializer.TRUSTED_PACKAGES("*") -- conf. p/ verificar se a aplicacao esta dentro de um pacote confiavel, nesse caso o * confia em tudo
+ * mas vc pode colocar somente p/ deserializar dentro de seus pacotes dto por ex: sanara.pix.dto
+ */
 @Configuration
 public class ConsumerKafkaConfig {
 
@@ -42,7 +50,10 @@ public class ConsumerKafkaConfig {
         return new KafkaTemplate<>(producerFactory());
     }
 
-
+    /**
+     * consumidor kafka p/ deserializar p/ objetos java
+     * @return
+     */
     @Bean
     public ConsumerFactory<String, PixDTO> consumerFactory() {
         Map<String, Object> props = new HashMap<>();

@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
+/**
+ * implementa o consumidor kafka fazendo a validacao
+ */
 @Service
 public class PixValidator {
 
@@ -19,6 +22,8 @@ public class PixValidator {
     @Autowired
     private PixRepository pixRepository;
 
+    //instancia o ouvinte para o topico pix-topic a cada atualizacao ele faz uma chamada 
+    //um mesmo método pode ouvir mais de um topico
     @KafkaListener(topics = "pix-topic", groupId = "grupo")
     public void processaPix(PixDTO pixDTO) {
         System.out.println("Pix  recebido: " + pixDTO.getIdentifier());
