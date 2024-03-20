@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.*;
+import org.springframework.kafka.listener.ContainerProperties;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 
@@ -52,10 +53,11 @@ public class ConsumerKafkaConfig {
 
     /**
      * consumidor kafka p/ deserializar p/ objetos java
+     *
      * @return
      */
     @Bean
-    public ConsumerFactory<String, PixDTO> consumerFactory() {
+    public ConsumerFactory<? super String, ? super String> consumerFactory() {
         Map<String, Object> props = new HashMap<>();
         props.put(
                 ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,
@@ -89,12 +91,13 @@ public class ConsumerKafkaConfig {
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, PixDTO>
-        kafkaListenerContainerFactory() {
+    public ConcurrentKafkaListenerContainerFactory<String, String>
+    kafkaListenerContainerFactory() {
 
-        ConcurrentKafkaListenerContainerFactory<String, PixDTO> factory =
+        ConcurrentKafkaListenerContainerFactory<String, String> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
+        factory.getContainerProperties().setAckMode(ContainerProperties.AckMode.MANUAL);
         return factory;
     }
 
