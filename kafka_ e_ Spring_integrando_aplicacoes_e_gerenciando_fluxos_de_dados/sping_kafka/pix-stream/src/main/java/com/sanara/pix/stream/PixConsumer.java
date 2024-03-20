@@ -25,19 +25,23 @@ public class PixConsumer {
         //envia o pix pra outro topico p/ verificar se nao e fraude
         messageStream.to("pix-verificacao-fraude", Produced.with(Serdes.String(), PixSerdes.serdes()));
 
+        //agrega todos os pagamentos por chave sempre q agrega é kTable
         KTable<String, Double> aggregateStream = streamsBuilder
                 .stream("pix-topic-2", Consumed.with(Serdes.String(), PixSerdes.serdes()))
                 .peek((key, value) -> System.out.println("Pix recebido: " + value.getChaveOrigem()))
                 .filter((key, value) -> value.getValor() != null)
                 .groupBy((key, value) -> value.getChaveOrigem())
                 .aggregate(
-                        () -> 0.0,
+                        () -> 0.0, //valor que vai somar a partir de 0.0
                         (key, value, aggregate) -> (aggregate + value.getValor()),
-                        Materialized.with(Serdes.String(), Serdes.Double())
+                        Materialized.with(Serdes.String(), Serdes.Double())//indica onde o kafka vai armazenar a agregacao no caso pix-topic-2
                 );
 
 
         aggregateStream.toStream().print(Printed.toSysOut());
+
+        //aqui envia o valor agregado para um topico desejado
+        aggregateStream.toStream().to("pix-topic-agregacao", Produced.with(Serdes.String(), Serdes.Double()));
 
 
 
