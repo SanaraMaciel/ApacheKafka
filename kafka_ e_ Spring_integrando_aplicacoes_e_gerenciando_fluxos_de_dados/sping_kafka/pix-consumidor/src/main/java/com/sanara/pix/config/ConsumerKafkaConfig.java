@@ -69,6 +69,22 @@ public class ConsumerKafkaConfig {
         props.put(
                 JsonDeserializer.TRUSTED_PACKAGES,
                 "*");
+        //confighuração pra melhorar o desempenho da aplicação
+        //ele vai no kafka pega 100 msgs e dps retorna pra processar
+        props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, 10);
+
+        //indica a partir de quando vai consumir as msgs
+        //earliest -- pega desde a mais antiga latest-- pega desde a mais recente
+        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,"earliest");
+
+        //deixa criar tópicos caso ele ainda não exista true deixa false não cria o topico automaticamente
+        props.put(ConsumerConfig.ALLOW_AUTO_CREATE_TOPICS_CONFIG,false);
+
+        //qdo chega uma msg no consumidor ele faz o commit automaticamente isso faz com q o kafka não distribua
+        //a msg dps dela ter sido enviada, se vc quiser fazer o controle desse commit pelo código vc habilita como false
+        props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG,false);
+
+
         return new DefaultKafkaConsumerFactory<>(props);
     }
 

@@ -8,6 +8,7 @@ import com.sanara.pix.repository.KeyRepository;
 import com.sanara.pix.repository.PixRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Service;
 
 /**
@@ -24,8 +25,11 @@ public class PixValidator {
 
     //instancia o ouvinte para o topico pix-topic a cada atualizacao ele faz uma chamada
     //um mesmo método pode ouvir mais de um topico
+    // a propriedade acknowledgment é utilizada p/ controlar onde o commit da msg vai ser feito
     @KafkaListener(topics = "pix-topic-partitions", groupId = "grupo")
-    public void processaPix(PixDTO pixDTO) {
+    public void processaPix(PixDTO pixDTO, Acknowledgment acknowledgment) {
+
+
         System.out.println("Pix  recebido: " + pixDTO.getIdentifier());
 
         Pix pix = pixRepository.findByIdentifier(pixDTO.getIdentifier());
@@ -39,6 +43,7 @@ public class PixValidator {
             pix.setStatus(PixStatus.PROCESSADO);
         }
         pixRepository.save(pix);
+        acknowledgment.acknowledge();
     }
 
 }
