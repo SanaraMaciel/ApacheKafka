@@ -122,9 +122,13 @@ link do control center: localhost:9021/clusters/
 instalação: 
 curl -s "https://get.sdkman.io" | bash
 source "$HOME/.sdkman/bin/sdkman-init.sh"
-sdk version
+sdk version  -- para ver as versão instalada
 
-* ver toas as versões java disponiveis: sdk java list
+* instalar o java pelo sdkman: abra o terminal e digite sdk install java e a versão selecionada
+* ver toas as versões java disponiveis: sdk list java
+* mudar a versão do java : sdk use java 11.0.6 (versão escolhida) 
+
+** sdk list : mostra todas as tecnologias que o SDKMan suporta
 
 
 
