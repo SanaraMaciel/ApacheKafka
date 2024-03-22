@@ -115,6 +115,8 @@ e colocar a variaavel assim: JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
 ** após essa configuração executar novamente o comando :  confluent local services start
 
 
+link do control center: localhost:9021/clusters/
+
 
 **** comandos para instalar o java através do sdkman.io:
 instalação: 
