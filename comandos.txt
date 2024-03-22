@@ -95,5 +95,36 @@ que está relacionado com a retenção: retention.ms e retention.bytes:
 link de explicação do kafka transaction: medium.com/@mykidong/kafka-transaction-56f022af1b0c
 link dos repositórios remotos utilizados na trilha da alura: https://github.com/orgs/alura-cursos/repositories?type=all&q=kafka
 
+**** Configurando o confluent para executar o confluent kafka
+* após baixar e extrair o arquivo configurar as duas variáveis de ambiente da seguinte forma:
+variável confluent_home -> export CONFLUENT_HOME=/l/disk0/sanara/confluent/confluent-7.6.0
+variável path -> export PATH=$CONFLUENT_HOME/bin:$PATH
+
+** para executar o confluent : confluent local services start
+
+**** Caso haja erro na inicialização é necessário instalar a versão 8 ou 11 do java e configurar o caminho para o confluent  seguir os passos:
+* instalar a versão 11 do java
+* selecionar a versão que queira usar o java através do comando : sudo update-alternatives --config java
+* copie esse caminho desejado ( no caso o java 11) do arquivo e altere a variavel de ambiente do JAVA_HOME para apontar para o caminho da instalação
+* para alterar você pode usar o nano através do comando : sudo nano /etc/environment ou outro editor de texto
+e colocar a variaavel assim: JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
+* salve o arquivo e saia do editor 
+* depois recarregue as alterações que vc fez com o comando : source /etc/environment
+* para conferir se deu certo digite o comando echo $JAVA_HOME e deverá aparecer o caminho configurado
+
+** após essa configuração executar novamente o comando :  confluent local services start
+
+
+
+**** comandos para instalar o java através do sdkman.io:
+instalação: 
+curl -s "https://get.sdkman.io" | bash
+source "$HOME/.sdkman/bin/sdkman-init.sh"
+sdk version
+
+* ver toas as versões java disponiveis: sdk java list
+
+
+
 
 
